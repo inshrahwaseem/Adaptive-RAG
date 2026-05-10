@@ -2,8 +2,6 @@
 ReAct agent setup for document retrieval and question answering.
 """
 
-import os
-
 from langchain.agents import create_react_agent, AgentExecutor
 from langchain_core.prompts import ChatPromptTemplate
 
@@ -15,13 +13,6 @@ config = Config()
 
 # Initialize tools
 tools = [get_retriever()]
-
-# Load document description if available
-if os.path.exists("description.txt"):
-    with open("description.txt", "r", encoding="utf-8") as f:
-        description = f.read()
-else:
-    description = None
 
 # Create ReAct agent prompt
 prompt = ChatPromptTemplate.from_messages([

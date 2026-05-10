@@ -2,12 +2,9 @@
 Retriever setup and vector store configuration.
 """
 
-import os
-
 from langchain_core.documents import Document
 from langchain_core.tools import create_retriever_tool
 from langchain_openai import OpenAIEmbeddings
-# from langchain_qdrant import QdrantVectorStore
 from langchain_community.vectorstores import FAISS
 
 from src.core.config import settings
@@ -87,12 +84,8 @@ def get_retriever():
             )
             retriever = _faiss_vectorstore.as_retriever()
 
-        # Load document description
-        if os.path.exists("description.txt"):
-            with open("description.txt", "r", encoding="utf-8") as f:
-                description = f.read()
-        else:
-            description = None
+        # Default description for the retriever tool
+        description = "the uploaded documents"
 
         retriever_tool = create_retriever_tool(
             retriever,
