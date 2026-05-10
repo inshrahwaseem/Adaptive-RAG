@@ -130,7 +130,7 @@ Open your terminal or PowerShell and follow these exact Windows commands:
 
 ## 🔄 How It Works (Step by Step)
 1. **Query Routing**: The system receives a user question and classifies it. It decides if the question requires internal documents, general knowledge, or a web search.
-2. **Retrieval**: If internal knowledge is needed, it fetches the most relevant document chunks from the FAISS Vector Database.
+2. **Retrieval**: If internal knowledge is needed, it fetches the most relevant document chunks from the Qdrant / FAISS Vector Database.
 3. **Grading**: An LLM grades the retrieved documents to check if they are actually relevant to the user's question.
 4. **Self-Correction (Rewriting)**: If the retrieved documents are not useful, the system rewrites the query to be more effective and tries retrieving again.
 5. **Web Search Fallback**: If internal documents still fail or if the query requires external data, it searches the web using Tavily.
@@ -145,7 +145,7 @@ Open your terminal or PowerShell and follow these exact Windows commands:
 > *Router → Retriever → Grader → Generator*
 
 **Output Answer:**
-> "The Adaptive RAG system uses a directed graph workflow built with LangGraph. User queries are first classified by a router, then relevant documents are retrieved from the FAISS vector store. A grader evaluates document relevance — if the documents are not useful, the query is rewritten and retrieval is retried. If internal documents fail, a Tavily web search is used as a fallback before generating the final answer."
+> "The Adaptive RAG system uses a directed graph workflow built with LangGraph. User queries are first classified by a router, then relevant documents are retrieved from the vector store. A grader evaluates document relevance — if the documents are not useful, the query is rewritten and retrieval is retried. If internal documents fail, a Tavily web search is used as a fallback before generating the final answer."
 
 ## ⚠️ Common Issues & Fixes
 
