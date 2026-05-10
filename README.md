@@ -1,9 +1,15 @@
 # Adaptive RAG 🤖
+![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python&logoColor=white)
+![LangGraph](https://img.shields.io/badge/LangGraph-0.2-green)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Streamlit App](https://img.shields.io/badge/Streamlit-Live%20Demo-red?logo=streamlit&logoColor=white)
 
 ## 📌 What is this project?
 Adaptive RAG is an advanced, self-correcting question-answering system that dynamically routes user queries to the most appropriate data source. Instead of blindly querying a vector database, it decides whether to retrieve internal documents, perform an external web search, or answer from general knowledge, ensuring highly accurate and context-aware responses.
 
 ## 🏗️ Architecture
+![Adaptive RAG Architecture](./adaptive_RAG.png)
+
 The system utilizes a directed graph workflow to handle queries intelligently:
 **Router → Retriever → Grader → Generator → Hallucination Check → Answer**
 
@@ -36,12 +42,20 @@ The system utilizes a directed graph workflow to handle queries intelligently:
 - LangChain
 - LangGraph
 - OpenAI GPT (gpt-4o-mini)
-- FAISS Vector DB (Configurable)
+- Groq (optional alternative LLM provider)
+- Qdrant Vector DB (with FAISS fallback support)
 - Tavily Web Search API
 
 ## 📁 Project Structure
 ```text
 Adaptive-RAG/
+├── docs/                # Additional documentation files
+│   ├── CODE_STYLE_GUIDE.md
+│   ├── DOCUMENTATION_INDEX.md
+│   ├── DOCUMENT_FLOW_VISUAL.md
+│   ├── DOCUMENT_UPLOAD_FLOW.md
+│   ├── QDRANT_SETUP_GUIDE.md
+│   └── QUICK_REFERENCE.md
 ├── src/
 │   ├── api/             # FastAPI routes and endpoints
 │   ├── config/          # Configuration and prompt templates
@@ -59,6 +73,7 @@ Adaptive-RAG/
 │   └── home.py          # Streamlit main landing page
 ├── requirements.txt     # Pinned Python dependencies
 ├── .env.example         # Template for environment variables
+├── LICENSE              # MIT License
 └── README.md            # Project documentation (You are here)
 ```
 
@@ -124,13 +139,13 @@ Open your terminal or PowerShell and follow these exact Windows commands:
 ## 📊 Example Output
 
 **Input Question:**
-> "What is the setup process for the Qdrant database in this system?"
+> "What is the architecture of the Adaptive RAG system?"
 
 **Process Flow:**
-> *Router -> Retriever -> Grader -> Generator*
+> *Router → Retriever → Grader → Generator*
 
 **Output Answer:**
-> "To set up the Qdrant database, you first need to pull the Qdrant Docker image using `docker pull qdrant/qdrant`. Then, run the container and expose port 6333. Next, ensure you add your `QDRANT_API_KEY` to the `.env` file so the Adaptive RAG system can authenticate and store your document vectors."
+> "The Adaptive RAG system uses a directed graph workflow built with LangGraph. User queries are first classified by a router, then relevant documents are retrieved from the FAISS vector store. A grader evaluates document relevance — if the documents are not useful, the query is rewritten and retrieval is retried. If internal documents fail, a Tavily web search is used as a fallback before generating the final answer."
 
 ## ⚠️ Common Issues & Fixes
 
@@ -140,6 +155,12 @@ Open your terminal or PowerShell and follow these exact Windows commands:
 | `openai.AuthenticationError` | Missing or invalid OpenAI key. | Check your `.env` file and make sure `OPENAI_API_KEY` is set correctly without quotes. |
 | `Tavily HTTP 401 Unauthorized` | Invalid Tavily API key. | Ensure `TAVILY_API_KEY` in `.env` is correct. |
 | `Streamlit: Command not found` | Virtual environment not activated. | Run `.\venv\Scripts\activate` before starting Streamlit. |
+
+## 📚 Additional Documentation
+- [Code Style Guide](docs/CODE_STYLE_GUIDE.md)
+- [Qdrant Setup Guide](docs/QDRANT_SETUP_GUIDE.md)
+- [Quick Reference](docs/QUICK_REFERENCE.md)
+- [Document Flow Visual](docs/DOCUMENT_FLOW_VISUAL.md)
 
 ## 🤝 Credits
 Inspired by LangGraph's Adaptive RAG tutorial.
